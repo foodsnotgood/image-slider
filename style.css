@@ -53,6 +53,7 @@ h1 {
   width: 80vw;
   background-color: #dddddd99;
   position: relative;
+  border-radius: 5px;
 }
 
 .arrow {
@@ -73,6 +74,12 @@ h1 {
 .arrow_right {
   right: 10px;
   transform: rotate(135deg);
+}
+
+.arrow:hover {
+  border-color: #222222;
+  width: 1.8rem;
+  height: 1.8rem;
 }
 
 @media screen and (max-width: 600px) {
