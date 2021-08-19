@@ -44,18 +44,28 @@ const initializeSlider = function () {
   for (let i = 0; i < indicators.length; i++) {
     indicators[i].dataset.sliderNumber = `${i + 1}`;
   }
+
+  toggleIndicator(indicators[0]);
 };
 
-const setCurrentImage = function (dataSliderNumber, leftOrRight) {
+const setCurrentImage = function (dataSliderNumber) {
   const newImage = images[dataSliderNumber - 1];
+  const leftOrRight =
+    newImage.dataset.sliderNumber < currentImage.dataset.sliderNumber
+      ? "left"
+      : "right";
   if (currentImage) {
     moveImage(currentImage, newImage, leftOrRight);
     const indicator = getIndicator(currentImage);
-    indicator.classList.remove("indicator_active");
+    toggleIndicator(indicator);
   }
   currentImage = newImage;
   const indicator = getIndicator(currentImage);
-  indicator.classList.add("indicator_active");
+  toggleIndicator(indicator);
+};
+
+const toggleIndicator = function (ind) {
+  ind.classList.toggle("indicator_active");
 };
 
 const getIndicator = function (img) {
@@ -68,13 +78,13 @@ const getSliderNumber = function (image) {
 
 left.addEventListener("click", function () {
   if (getSliderNumber(currentImage) > 1) {
-    setCurrentImage(getSliderNumber(currentImage) - 1, "left");
+    setCurrentImage(getSliderNumber(currentImage) - 1);
   }
 });
 
 right.addEventListener("click", function () {
   if (getSliderNumber(currentImage) < images.length) {
-    setCurrentImage(getSliderNumber(currentImage) + 1, "right");
+    setCurrentImage(getSliderNumber(currentImage) + 1);
   }
 });
 
