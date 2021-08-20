@@ -1,6 +1,6 @@
 "use strict";
 
-const images = document.querySelectorAll(".slider_image");
+const images = [...document.querySelectorAll(".slider_image")];
 const left = document.querySelector(".left");
 const right = document.querySelector(".right");
 const indicatorsList = document.querySelector("#indicators");
@@ -12,19 +12,18 @@ for (let i = 1; i <= images.length; i++) {
 }
 
 const initializeSlider = function () {
-  const img = images[0];
-  img.style.left = "0";
   currentImage = images[0];
+  currentImage.style.left = "0";
 
   for (let i = 1; i < images.length; i++) {
-    images[i].style.left = "100%";
+    images[i].style.left = "-100%";
   }
 
   for (const image of images) {
     indicatorsList.innerHTML += "<li class='ind'></li>";
   }
 
-  indicators = document.querySelectorAll(".ind");
+  indicators = [...document.querySelectorAll(".ind")];
 
   for (let i = 0; i < indicators.length; i++) {
     indicators[i].dataset.sliderNumber = `${i + 1}`;
@@ -33,16 +32,16 @@ const initializeSlider = function () {
   toggleIndicator(indicators[0]);
 };
 
-const moveImage = function (img, newImg, leftOrRight) {
+const moveImage = function (cImg, newImg, leftOrRight) {
   if (leftOrRight == "right") {
-    img.style.animation = "rightOut 1s";
-    img.style.left = "-100%";
+    cImg.style.animation = "rightOut 1s";
+    cImg.style.left = "-100%";
     newImg.style.animation = "leftIn 1s";
     newImg.style.left = "0";
   }
   if (leftOrRight == "left") {
-    img.style.animation = "leftOut 1s";
-    img.style.left = "100%";
+    cImg.style.animation = "leftOut 1s";
+    cImg.style.left = "100%";
     newImg.style.animation = "rightIn 1s";
     newImg.style.left = "0";
   }
@@ -56,12 +55,10 @@ const setCurrentImage = function (dataSliderNumber) {
       : "right";
   if (currentImage) {
     moveImage(currentImage, newImage, leftOrRight);
-    const indicator = getIndicator(currentImage);
-    toggleIndicator(indicator);
+    toggleIndicator(getIndicator(currentImage));
   }
   currentImage = newImage;
-  const indicator = getIndicator(currentImage);
-  toggleIndicator(indicator);
+  toggleIndicator(getIndicator(currentImage));
 };
 
 const toggleIndicator = function (ind) {
@@ -69,11 +66,11 @@ const toggleIndicator = function (ind) {
 };
 
 const getIndicator = function (img) {
-  return indicators[img.dataset.sliderNumber - 1];
+  return indicators.find((i) => getSliderNumber(i) === getSliderNumber(img));
 };
 
-const getSliderNumber = function (image) {
-  return Number(image.dataset.sliderNumber);
+const getSliderNumber = function (i) {
+  return Number(i.dataset.sliderNumber);
 };
 
 left.addEventListener("click", function () {
@@ -83,8 +80,9 @@ left.addEventListener("click", function () {
 });
 
 right.addEventListener("click", function () {
-  if (getSliderNumber(currentImage) < images.length) {
-    setCurrentImage(getSliderNumber(currentImage) + 1);
+  const currentNumber = getSliderNumber(currentImage);
+  if (currentNumber < images.length) {
+    setCurrentImage(currentNumber + 1);
   }
 });
 
