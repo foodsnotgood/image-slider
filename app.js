@@ -7,27 +7,24 @@ const indicatorsList = document.querySelector("#indicators");
 let currentImage;
 let indicators;
 
-for (let i = 1; i <= images.length; i++) {
-  images[i - 1].dataset.sliderNumber = i;
-}
-
 const initializeSlider = function () {
   currentImage = images[0];
   currentImage.style.left = "0";
+
+  images.forEach((img, i) => {
+    img.dataset.sliderNumber = i + 1;
+    indicatorsList.innerHTML += "<li class='ind'></li>";
+  });
 
   for (let i = 1; i < images.length; i++) {
     images[i].style.left = "-100%";
   }
 
-  for (const image of images) {
-    indicatorsList.innerHTML += "<li class='ind'></li>";
-  }
-
   indicators = [...document.querySelectorAll(".ind")];
 
-  for (let i = 0; i < indicators.length; i++) {
-    indicators[i].dataset.sliderNumber = `${i + 1}`;
-  }
+  indicators.forEach((ind, i) => (ind.dataset.sliderNumber = i + 1));
+
+  console.log(images);
 
   toggleIndicator(indicators[0]);
 };
@@ -61,6 +58,10 @@ const setCurrentImage = function (dataSliderNumber) {
   toggleIndicator(getIndicator(currentImage));
 };
 
+const getSliderNumber = function (i) {
+  return Number(i.dataset.sliderNumber);
+};
+
 const toggleIndicator = function (ind) {
   ind.classList.toggle("indicator_active");
 };
@@ -69,9 +70,7 @@ const getIndicator = function (img) {
   return indicators.find((i) => getSliderNumber(i) === getSliderNumber(img));
 };
 
-const getSliderNumber = function (i) {
-  return Number(i.dataset.sliderNumber);
-};
+////////////////////  Buttons left and right/////////////////////////
 
 left.addEventListener("click", function () {
   if (getSliderNumber(currentImage) > 1) {
