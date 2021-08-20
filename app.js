@@ -11,24 +11,9 @@ for (let i = 1; i <= images.length; i++) {
   images[i - 1].dataset.sliderNumber = i;
 }
 
-const moveImage = function (img, newImg, leftOrRight) {
-  if (leftOrRight == "right") {
-    img.style.animation = "rightOut 1s";
-    img.style.left = "-100%";
-    newImg.style.animation = "leftIn 1s";
-    newImg.style.left = "0";
-  }
-  if (leftOrRight == "left") {
-    img.style.animation = "leftOut 1s";
-    img.style.left = "100%";
-    newImg.style.animation = "rightIn 1s";
-    newImg.style.left = "0";
-  }
-};
-
 const initializeSlider = function () {
   const img = images[0];
-  img.style.left = "1%";
+  img.style.left = "0";
   currentImage = images[0];
 
   for (let i = 1; i < images.length; i++) {
@@ -46,6 +31,21 @@ const initializeSlider = function () {
   }
 
   toggleIndicator(indicators[0]);
+};
+
+const moveImage = function (img, newImg, leftOrRight) {
+  if (leftOrRight == "right") {
+    img.style.animation = "rightOut 1s";
+    img.style.left = "-100%";
+    newImg.style.animation = "leftIn 1s";
+    newImg.style.left = "0";
+  }
+  if (leftOrRight == "left") {
+    img.style.animation = "leftOut 1s";
+    img.style.left = "100%";
+    newImg.style.animation = "rightIn 1s";
+    newImg.style.left = "0";
+  }
 };
 
 const setCurrentImage = function (dataSliderNumber) {

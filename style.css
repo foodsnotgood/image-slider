@@ -68,8 +68,16 @@ h1 {
   left: 0px;
 }
 
+.left:hover {
+  background-image: linear-gradient(to right, #ffffff80, #ffffff00, #ffffff00);
+}
+
 .right {
   right: 0px;
+}
+
+.right:hover {
+  background-image: linear-gradient(to left, #ffffff80, #ffffff00, #ffffff00);
 }
 
 .arrow {
@@ -147,13 +155,22 @@ h1 {
     height: 100vh;
     width: 100vw;
   }
+
+  .container {
+    width: 100%;
+  }
+
+  .slider_container {
+    width: 100%;
+  }
+
   h1 {
     font-size: 3rem;
   }
 
   .bgText {
-    font-size: 40rem;
-    top: -20px;
+    font-size: 60rem;
+    bottom: 0px;
     right: 0;
   }
 
