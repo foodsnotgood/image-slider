@@ -21,11 +21,7 @@ const initializeSlider = function () {
   }
 
   indicators = [...document.querySelectorAll(".ind")];
-
   indicators.forEach((ind, i) => (ind.dataset.sliderNumber = i + 1));
-
-  console.log(images);
-
   toggleIndicator(indicators[0]);
 };
 
